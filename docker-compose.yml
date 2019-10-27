@@ -1,0 +1,24 @@
+version: '3'
+services:
+  db:
+    container_name: myapp_db
+    image: mongo
+    ports:
+      - "27017:27017"
+  api:
+    container_name: myapp_api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+networks:
+  default:
+    external:
+      name: Dev-Net
+volumes:
+  Dev-Volume:
+    external:
+      name: Dev-Volume
